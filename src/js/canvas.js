@@ -8,6 +8,7 @@ const settings = {
   duration: 10,
   dimensions: [1080, 1920],
   fps: 36,
+  loop: true,
 }
 
 canvas.width = innerWidth
@@ -67,7 +68,7 @@ function animate(time) {
   if (!startTime) startTime = time
   const elapsedTime = (time - startTime) / 1000
 
-  let playhead = Utils.clamp01(elapsedTime / settings.duration)
+  let playhead = (elapsedTime % settings.duration) / settings.duration
 
   c.fillStyle = `rgba(255,255,255)`
   c.fillRect(0, 0, canvas.width, canvas.height)
@@ -80,8 +81,14 @@ function animate(time) {
   })
   c.restore()
 
-  if (settings.animate && elapsedTime < settings.duration) {
-    requestAnimationFrame(animate) // Continue the animation
+  if (settings.loop) {
+    if (settings.animate) {
+      requestAnimationFrame(animate) // Continue the animation
+    }
+  } else {
+    if (settings.animate && elapsedTime < settings.duration) {
+      requestAnimationFrame(animate) // Continue the animation
+    }
   }
 }
 
