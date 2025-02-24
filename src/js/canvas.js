@@ -87,7 +87,7 @@ class Square {
   }
 
   update(progress) {
-    this.alpha = progress < 0 ? 1 : Math.max(0, 1 - progress * 1.75)
+    this.alpha = progress < 0 ? 1 : Math.max(0, 1 - progress * 5)
     this.shift = progress < 0 ? 0 : 500 * this.random * progress
     this.shiftX = this.shift * Math.sin(this.angle)
     this.shiftY = this.shift * Math.cos(this.angle)
@@ -106,7 +106,7 @@ let size = innerWidth / cols
 
 let period = cols
 
-let floor = 400
+let floor = 600
 let randoms = Array.from(Array(cols), () => new Array(rows))
 
 let image = Array.from(Array(cols), () => new Array(rows))
